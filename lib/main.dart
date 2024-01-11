@@ -32,9 +32,9 @@ class MyApp extends StatelessWidget {
 }
 
 class MyCards extends StatefulWidget {
-  MyCards({Key key, this.title}) : super(key: key);
-
   final String title;
+
+  const MyCards({super.key, required this.title});
 
   @override
   _MyCardsPageState createState() => _MyCardsPageState();
@@ -83,7 +83,7 @@ class _MyCardsPageState extends State<MyCards> {
                 boxShadow: [
                   BoxShadow(
                       blurRadius: 5.0,
-                      color: Colors.grey[300],
+                      color: Colors.grey.shade300,
                       spreadRadius: 5.0),
                 ],
                 borderRadius: BorderRadius.only(
@@ -92,14 +92,11 @@ class _MyCardsPageState extends State<MyCards> {
                 ),
                 color: Colors.white,
               ),
-              child: Hero(
-                tag: "card",
-                child: InkWell(
-                  child: CreditCardContainer(),
-                  onTap: () {
-                    Navigator.pop(context);
-                  },
-                ),
+              child: GestureDetector(
+                child: CreditCardContainer(),
+                onTap: () {
+                  Navigator.pop(context);
+                },
               ),
             ),
             CustomContainer(
@@ -115,13 +112,13 @@ class _MyCardsPageState extends State<MyCards> {
                     CustomIconButton(
                       buttonImg: IconImgs.freeze,
                       buttonTitle: "FREEZE CARD",
-                      circleColor: Colors.lime[100],
+                      circleColor: Colors.lime.shade100,
                       onTap: () {},
                     ),
                     CustomIconButton(
                       buttonImg: IconImgs.secret,
                       buttonTitle: "SHOW SECRET CODE",
-                      circleColor: Colors.pink[100],
+                      circleColor: Colors.pink.shade100,
                       onTap: () {},
                     ),
                   ],
@@ -205,9 +202,9 @@ class _MyCardsPageState extends State<MyCards> {
 }
 
 class Wallet extends StatefulWidget {
-  Wallet({Key key, this.title}) : super(key: key);
-
   final String title;
+
+  const Wallet({super.key, required this.title});
 
   @override
   _MyHomePageState createState() => _MyHomePageState();
@@ -276,7 +273,7 @@ class _MyHomePageState extends State<Wallet> {
                 boxShadow: [
                   BoxShadow(
                       blurRadius: 5.0,
-                      color: Colors.grey[300],
+                      color: Colors.grey.shade300,
                       spreadRadius: 5.0),
                 ],
                 borderRadius: BorderRadius.only(
@@ -285,24 +282,18 @@ class _MyHomePageState extends State<Wallet> {
                 ),
                 color: Colors.white,
               ),
-              child: Hero(
-                tag: "card",
-                child: Material(
-                  color: Colors.transparent,
-                  child: InkWell(
-                    child: CreditCardContainer(),
-                    onTap: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (_) {
-                            return MyCards(title: "My Cards");
-                          },
-                        ),
-                      );
-                    },
-                  ),
-                ),
+              child: GestureDetector(
+                child: CreditCardContainer(),
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (_) {
+                        return MyCards(title: "My Cards");
+                      },
+                    ),
+                  );
+                },
               ),
             ),
             CustomContainer(
@@ -403,16 +394,15 @@ class HistoryListTile extends StatelessWidget {
       transactionAmount,
       transactionIcon;
   final GestureTapCallback onTap;
-  const HistoryListTile({
-    Key key,
-    this.iconColor,
-    this.transactionName,
-    this.transactionType,
-    this.transactionAmount,
-    this.transactionIcon,
-    this.onTap,
-  }) : super(key: key);
 
+  const HistoryListTile(
+      {super.key,
+      required this.iconColor,
+      required this.transactionName,
+      required this.transactionType,
+      required this.transactionAmount,
+      required this.transactionIcon,
+      required this.onTap});
   @override
   Widget build(BuildContext context) {
     return Material(
@@ -441,11 +431,12 @@ class CustomRoundedButton extends StatelessWidget {
   final Color color;
   final String buttonText;
   final GestureTapCallback onTap;
-  CustomRoundedButton({
-    @required this.color,
-    @required this.buttonText,
-    @required this.onTap,
-  });
+
+  const CustomRoundedButton(
+      {super.key,
+      required this.color,
+      required this.buttonText,
+      required this.onTap});
   @override
   Widget build(BuildContext context) {
     return Material(
@@ -472,13 +463,13 @@ class CustomIconButton extends StatelessWidget {
   final String buttonTitle, buttonImg;
   final GestureTapCallback onTap;
   final Color circleColor;
-  const CustomIconButton({
-    @required this.circleColor,
-    @required this.buttonTitle,
-    @required this.buttonImg,
-    @required this.onTap,
-    Key key,
-  }) : super(key: key);
+
+  const CustomIconButton(
+      {super.key,
+      required this.buttonTitle,
+      required this.buttonImg,
+      required this.onTap,
+      required this.circleColor});
 
   @override
   Widget build(BuildContext context) {
@@ -519,10 +510,6 @@ class CustomIconButton extends StatelessWidget {
 }
 
 class CreditCardContainer extends StatelessWidget {
-  const CreditCardContainer({
-    Key key,
-  }) : super(key: key);
-
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -530,7 +517,9 @@ class CreditCardContainer extends StatelessWidget {
       decoration: BoxDecoration(
         boxShadow: [
           BoxShadow(
-              blurRadius: 5.0, color: Colors.red[200], offset: Offset(0, 5)),
+              blurRadius: 5.0,
+              color: Colors.red.shade200,
+              offset: Offset(0, 5)),
         ],
         borderRadius: BorderRadius.circular(15.0),
         gradient: LinearGradient(
@@ -610,7 +599,8 @@ class CreditCardContainer extends StatelessWidget {
 
 class CustomContainer extends StatelessWidget {
   final Widget child;
-  CustomContainer({@required this.child});
+
+  const CustomContainer({super.key, required this.child});
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -620,7 +610,7 @@ class CustomContainer extends StatelessWidget {
         boxShadow: [
           BoxShadow(
             blurRadius: 5.0,
-            color: Colors.grey[300],
+            color: Colors.grey.shade300,
             spreadRadius: 5.0,
           ),
         ],
